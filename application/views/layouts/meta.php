@@ -1,15 +1,31 @@
-<!doctype html>
-<html lang="en">
- 
+<!DOCTYPE html>
+<html>
+
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>">
-    <link href="<?= base_url('assets/vendor/fonts/circular-std/style.css" rel="stylesheet') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/libs/css/style.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/vendor/fonts/fontawesome/css/fontawesome-all.css') ?>">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Blank Page | Bootstrap Based Admin Template - Material Design</title>
+    <!-- Favicon-->
+    <link rel="icon" href="<?= base_url('adminbsb/favicon.ico') ?>" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="<?= base_url('adminbsb/plugins/bootstrap/css/bootstrap.css') ?>" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="<?= base_url('adminbsb/plugins/node-waves/waves.css ') ?>" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="<?= base_url('adminbsb/plugins/animate-css/animate.css ') ?>" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="<?= base_url('adminbsb/css/style.css ') ?>" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="<?= base_url('adminbsb/css/themes/all-themes.css ') ?>" rel="stylesheet" />
 </head>
-<body>
+
+<body class="theme-red">

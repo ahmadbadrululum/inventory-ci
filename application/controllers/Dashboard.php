@@ -5,7 +5,7 @@ class Dashboard extends CI_Controller
 {
     public function index()
     {
-        $this->data['subview']   = "layouts/index";
+        $this->data['subview']   = "layouts/page";
         $this->load->view('layouts/main', $this->data);
     }
 }
