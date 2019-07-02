@@ -132,7 +132,6 @@ class Transaksi extends CI_Controller
         $noInvoice   = $this->input->post('nomor_invoice');
         $idBarang = $this->input->post('selectBarang');
         $jumlah = $this->input->post('jumlah');
-        $idUnit = $this->input->post('selectSatuan');
         switch ($type) {
             case 'masuk':
                 $tanggal_masuk = $this->input->post('tanggal_masuk');
@@ -140,8 +139,6 @@ class Transaksi extends CI_Controller
                     $result['message'] = "tanggal harus diisi";
                 }elseif ($idBarang == "") {
                     $result['message'] = "barang harus disi";
-                }elseif ($idUnit == '') {
-                    $result['message'] = "satuan harus diisi";
                 }elseif ($jumlah == '') {
                     $result['message'] = "jumlah harus diisi";
                 }else{
@@ -152,7 +149,6 @@ class Transaksi extends CI_Controller
                         'nomor_invoice' => $noInvoice,
                         'tanggal' => $tanggal,
                         'product_id'    => $idBarang,
-                        'unit_id'       => $idUnit,
                         'total'         => $jumlah,
                     ];
                     $this->model->updateData($id,'transaksi', $data);
@@ -165,8 +161,6 @@ class Transaksi extends CI_Controller
                     $result['message'] = "tanggal harus diisi";
                 }elseif ($idBarang == "") {
                     $result['message'] = "barang harus disi";
-                }elseif ($idUnit == '') {
-                    $result['message'] = "satuan harus diisi";
                 }elseif ($jumlah == '') {
                     $result['message'] = "jumlah harus diisi";
                 }else{
@@ -177,7 +171,6 @@ class Transaksi extends CI_Controller
                         'nomor_invoice' => $noInvoice,
                         'tanggal' => $tanggal,
                         'product_id'    => $idBarang,
-                        'unit_id'       => $idUnit,
                         'total'         => $jumlah,
                     ];
                     $this->model->updateData($id,'transaksi', $data);
@@ -193,10 +186,14 @@ class Transaksi extends CI_Controller
             case 'masuk':
                 $id = $this->input->post('id');      
                 $this->model->deleteData($id,'transaksi');
+                $result['message'] = "";
+                echo json_encode($result);                
                 break;
             case 'keluar':
                 $id = $this->input->post('id');      
                 $this->model->deleteData($id,'transaksi');
+                $result['message'] = "";
+                echo json_encode($result);    
                 break;
         }
    

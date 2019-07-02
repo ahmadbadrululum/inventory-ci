@@ -302,7 +302,6 @@
                         $('#selectBarang').val("");
                         $('#selectSatuan').val(''); 
                         $('#jumlah').val('');
-                       
                         fieldForm();
                         $('#btnEdit').hide();
                         $('#btnSave').show();
@@ -321,9 +320,11 @@
                     data : {id:id},
                     url  : '<?= base_url('transaksi/deleteData/keluar') ?>',
                     dataType : 'json',
-                    success : function() {
+                    success : function(res) {
+                        if (res.message == '') {
                         showData();
                         fieldForm();
+                        }
                     }
                 });
             }

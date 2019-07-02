@@ -313,19 +313,22 @@
                     data : {id:id},
                     url  : '<?= base_url('transaksi/deleteData/masuk') ?>',
                     dataType : 'json',
-                    success : function() {
-                    
-                    u = $('#dataTable');
-                    u.fnClearTable();
-                    u.fnDraw();
-                    u.fnDestroy();
-                        showData();
-                        fieldForm();
+                    success : function(res) {
+                        if (res.message == '') {
+                            showData();
+                            fieldForm();
+                        }
                     }
+                    // u = $('#dataTable');
+                    // u.fnClearTable();
+                    // u.fnDraw();
+                    // u.fnDestroy();
+                    //     showData();
+                    //     fieldForm();
+                    // }
                 });
             }
         }
-     
-  
+    
 
 </script>
