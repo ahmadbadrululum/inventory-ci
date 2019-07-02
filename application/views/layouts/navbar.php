@@ -1,4 +1,4 @@
-        <!-- #END# Page Loader -->
+<body class="theme-red">        <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
