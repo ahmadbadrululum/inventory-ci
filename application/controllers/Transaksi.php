@@ -144,7 +144,7 @@ class Transaksi extends CI_Controller
                 }else{
                     $result['message'] = "";
                     $ArrTanggal = explode("/",$tanggal_masuk);
-                    $tanggal = $ArrTanggal[2].'-'.$ArrTanggal[0].'-'.$ArrTanggal[1];
+                    $tanggal = $ArrTanggal[2].'-'.$ArrTanggal[1].'-'.$ArrTanggal[0];
                     $data = [
                         'nomor_invoice' => $noInvoice,
                         'tanggal' => $tanggal,
@@ -166,7 +166,7 @@ class Transaksi extends CI_Controller
                 }else{
                     $result['message'] = "";
                     $ArrTanggal = explode("/",$tanggal_keluar);
-                    $tanggal = $ArrTanggal[2].'-'.$ArrTanggal[0].'-'.$ArrTanggal[1];
+                    $tanggal = $ArrTanggal[2].'-'.$ArrTanggal[1].'-'.$ArrTanggal[0];
                     $data = [
                         'nomor_invoice' => $noInvoice,
                         'tanggal' => $tanggal,

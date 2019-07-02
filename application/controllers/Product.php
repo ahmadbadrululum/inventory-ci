@@ -82,6 +82,8 @@ class Product extends CI_Controller
     public function deleteData(){
         $id = $this->input->post('id');      
         $this->model->deleteData($id,'product');
+        $result['message'] = "";
+        echo json_encode($result);
     }
 
 }

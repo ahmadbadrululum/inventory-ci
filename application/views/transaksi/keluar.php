@@ -56,7 +56,7 @@
                                         <div class="form-group">
                                             <div class="input-group date" id="bs_datepicker_component_container">
                                                 <div class="form-line focused">
-                                                    <input id="tanggal_keluar" name="tanggal_keluar" type="text" class="form-control" placeholder="tanggal masuk">
+                                                    <input id="tanggal_keluar" name="tanggal_keluar" type="text" class="form-control" placeholder="tanggal keluar">
                                                 </div>
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">date_range</i>
@@ -262,7 +262,7 @@
                 // console.log(id);
                 $('#editId').val(id.id);
                 $('#nomor_invoice ').val(id.nomor_invoice);
-                $('#tanggal_masuk').val(id.tanggal.split('-').reverse().join('/'));
+                $('#tanggal_keluar').val(id.tanggal.split('-').reverse().join('/'));
                 // $("#selectBarang").val(1).change();
                 // $("#selectBarang").val(1);
                 // $('#selectSatuan').val(id.unit_id);

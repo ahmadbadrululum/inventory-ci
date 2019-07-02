@@ -59,11 +59,9 @@
                 url  : '<?= base_url('gudang/showAllData/gudang') ?>',
                 dataType : 'json',
                 success : function (data) {
-                    console.log(data);
-                    
+
                     var baris = '';
                     var no = 1;
-                    var jml = [];
                     for (let i = 0; i < data.length; i++) {
                         baris += 
                             '<tr>'+

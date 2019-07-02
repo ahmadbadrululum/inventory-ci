@@ -224,9 +224,10 @@
                     data : {id:id},
                     url  : '<?= base_url('product/deleteData') ?>',
                     dataType : 'json',
-                    success : function() {
-                        location.reload();
+                    success : function(res) {
+                        if (res.message == '') {
                         showData();
+                    }
                     }
                 });
             }

@@ -13,7 +13,7 @@ class Models_general extends CI_Model
     }
     public function showDataProduct($id = null){
         if ($id == null) {
-            $query = "SELECT code_product, name_product, unit.unit_name FROM product JOIN unit on unit.id = product.unit_product_id";
+            $query = "SELECT product.id, code_product, name_product, unit.unit_name FROM product JOIN unit on unit.id = product.unit_product_id";
             return $this->db->query($query)->result();
         }
         $query = "SELECT product.id, code_product, name_product, unit.unit_name FROM product JOIN unit on unit.id = product.unit_product_id WHERE product.id = $id";
@@ -49,10 +49,11 @@ class Models_general extends CI_Model
         return $this->db->query($query)->row();
     }
 
+
     public function showAllData($table, $type = null)
     {
         if ($type == null) {
-            $query = "SELECT product_id, tanggal, code_product, name_product, unit_name FROM $table left join product on $table.product_id=product.id left join unit on $table.unit_id=unit.id group by product_id ORDER BY $table.id DESC";
+            $query = "SELECT $table.product_id, product.code_product, product.name_product, unit.unit_name FROM $table left join product on $table.product_id=product.id left join unit on product.unit_product_id=unit.id GROUP BY product_id DESC";
             return $this->db->query($query)->result();
         } else {
             $query = "SELECT $table.nomor_invoice, $table.id, $table.tanggal, product.code_product, product.name_product, unit.unit_name, $table.total from product join $table on $table.product_id = product.id join unit on unit.id = product.unit_product_id where nomor_invoice like '%$type%' ORDER BY $table.id DESC";
