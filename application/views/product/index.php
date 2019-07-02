@@ -186,15 +186,12 @@
             }
         }
 
-
-
     // $('#simpaubahDatanData').on('click', function () {
         function editDataSubmit() {
             var id = $("[name='editId']").val();
             var product_code = $('#product_code').val();
             var product_name = $('#product_name').val();
             var select_satuan = $('#select_satuan').val();
-            // console.log(id);
             $.ajax({
                 type : 'POST',
                 data : {

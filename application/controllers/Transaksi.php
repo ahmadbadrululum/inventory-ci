@@ -199,4 +199,12 @@ class Transaksi extends CI_Controller
    
     }
 
+    public function getIdSatuan(){
+        $masuk = $this->model->getSum($this->input->post('id'), 'BM')->sum;
+        $keluar = $this->model->getSum($this->input->post('id'), 'BK')->sum;
+        $data['total'] = $masuk - $keluar;
+        $data['cekid'] = $this->model->showDataProduct($this->input->post('id'));
+        echo json_encode($data);
+    }
+    
 }

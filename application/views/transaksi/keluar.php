@@ -69,13 +69,13 @@
                                         <h2 class="card-inside-title">Barang</h2>
                                         <select class="form-control show-tick" id="selectBarang">
                                             <option value="">--Pilih Barang--</option>
-                                            
                                             <?php
                                             foreach ($product as $pro) {
                                                 foreach ($productid as $proid) {
                                                     if ($pro->id == $proid->product_id) {
                                                         ?>
                                                 <option value="<?= $pro->id ?>"><?= $pro->name_product ?></option>
+                                                <!-- <input type="hidden" name="product_id" id="product_id"> -->
                                             <?php
                                                     }
                                                 }
@@ -88,15 +88,16 @@
                                         <h2 class="card-inside-title">Jumlah</h2>
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input  id="jumlah" name="jumlah" type="text" class="form-control">
+                                                    <input  id="jumlah" name="jumlah" type="number" class="form-control">
                                                 </div>
+                                                <div id="cektotal"></div>
                                             </div>
                                     </div>
                                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                         <h2 class="card-inside-title">Satuan</h2>
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input  readonly id="selectSatuan" name="selectSatuan" type="text" class="form-control">
+                                                    <input readonly id="selectSatuan" name="selectSatuan" type="text" class="form-control">
                                                 </div>
                                             </div>
                                     </div>
@@ -159,11 +160,20 @@
         $.ajax({
             method: 'POST',
             data  : { id : id },
-            url   : '<?= base_url('product/getIdSatuan') ?>',
+            url   : '<?= base_url('transaksi/getIdSatuan') ?>',
             dataType: 'json',
             success : function(res) {
-                // console.log(res.unit_name);
-                $('#selectSatuan').val(res.unit_name);
+                console.log(res.total);
+                if ( id != '') {
+                    $('#cektotal').empty()
+                    $('#cektotal').append('<p style="color:red"> stok barang '+res.total+'</p>')
+                    // console.log(res.unit_name);
+                    $('#selectSatuan').val(res.cekid.unit_name);
+                }else{
+                    $('#cektotal').empty()
+                    $('#selectSatuan').val('');
+                }
+
             }
         });
     })
@@ -245,6 +255,7 @@
                         $('#selectSatuan').val('');
                         $('#jumlah').val('');
                         fieldForm();
+                        $('#cektotal').empty()
                     }
                 }                
             });

@@ -46,6 +46,8 @@ class Product extends CI_Controller
     }
 
     public function getId(){
+        // $total_masuk = $this->model->getSum($key->product_id, 'BM')->sum;
+        // $total_kelar = $this->model->getSum($key->product_id, 'Bk')->sum;
         $id = $this->input->post('id');
         $checkId = $this->model->getData('product','id', $id);
         echo json_encode($checkId);

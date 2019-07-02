@@ -80,7 +80,7 @@
                                         <h2 class="card-inside-title">Jumlah</h2>
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input  id="jumlah" name="jumlah" type="text" class="form-control">
+                                                    <input  id="jumlah" name="jumlah" type="number" class="form-control">
                                                 </div>
                                             </div>
                                     </div>
