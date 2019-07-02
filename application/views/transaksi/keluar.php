@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
-                                       <h2 class="card-inside-title">Barang</h2>
+                                        <h2 class="card-inside-title">Barang</h2>
                                         <select class="form-control show-tick" id="selectBarang">
                                             <option value="">--Pilih Barang--</option>
                                             
@@ -100,7 +100,6 @@
                                                 </div>
                                             </div>
                                     </div>
-                                  
                                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                         <button type="button" id="btnSave" class="btn btn-success waves-effect m-r-20" onclick="submitSave()"><i class="material-icons" style="color:white">add</i><span>tambah data</span></button>
                                         <button style="display:none;" type="button" id="btnEdit" onclick="editDataSubmit()" class="btn btn-primary waves-effect m-r-20"><i class="material-icons" style="color:white">create</i><span> edit data</span></button>
@@ -193,6 +192,7 @@
             }
         });    
     }
+
     function showData() {
             $.ajax({
                 type : "POST",
@@ -244,7 +244,6 @@
                         $('#selectBarang').val("");
                         $('#selectSatuan').val('');
                         $('#jumlah').val('');
-                       
                         fieldForm();
                     }
                 }                

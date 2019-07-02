@@ -90,8 +90,6 @@ class Transaksi extends CI_Controller
                     $result['message'] = "tanggal harus diisi";
                 }elseif ($idBarang == "") {
                     $result['message'] = "barang harus disi";
-                }elseif ($idUnit == '') {
-                    $result['message'] = "satuan harus diisi";
                 }elseif ($jumlah == '') {
                     $result['message'] = "jumlah harus diisi";
                 }else{
@@ -102,12 +100,12 @@ class Transaksi extends CI_Controller
                         'nomor_invoice' => $noInvoice,
                         'tanggal'       => $tanggal,
                         'product_id'    => $idBarang,
-                        'unit_id'       => $idUnit,
                         'total'         => $jumlah,
                     ];
                     $this->model->saveData('transaksi', $data);
                 }
-                echo json_encode($data);
+
+                echo json_encode($result);
                 break;
         }
         
