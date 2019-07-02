@@ -39,6 +39,9 @@
                         </div>
                         <div class="body">
                             <form>
+                                <div class="row clearfix" id="message">
+                                    
+                                </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                         <h2 class="card-inside-title">Nomor Invoice</h2>
@@ -228,8 +231,7 @@
                 url  : '<?=  base_url('transaksi/saveData/masuk') ?>',
                 dataType : 'json',
                 success : function(res) {
-                    // console.log(res);
-                    $('#message').html(res.message)
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
                         showData();
                         $('#tanggal_masuk').val("");
@@ -238,6 +240,10 @@
                         // $('#selectSatuan').selectpicker('refresh');
                         $('#jumlah').val('');
                         fieldForm();
+                        $('#message').empty();    
+                        $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Masukkan barang sukses</div>')
+
+                        // $('#message').empty();
                     }
                 }                
             });
@@ -287,15 +293,16 @@
                 dataType : 'json',
                 success : function(res) {
                     // console.log(res.message);
-                    $('#message').html(res.message)
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>')
                     if (res.message == '') {
                         showData();
                         $('#tanggal_masuk').val("");
                         $('#selectBarang').val("");
                         $('#selectSatuan').val(''); 
                         $('#jumlah').val('');
-
                         fieldForm();
+                        $('#message').empty();    
+                        $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Edit barang sukses</div>')
                         $('#btnEdit').hide();
                         $('#btnSave').show();
                     }
