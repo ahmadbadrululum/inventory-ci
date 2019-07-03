@@ -22,23 +22,15 @@
                         <div class="header">
                             <h2>
                                 FORM BARANG KELUAR
-                                <!-- <small>With floating label</small> -->
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
+                            <ul class="header-dropdown" style="margin-right:-20px; margin-top:-10px;">
+                                    <button type="button" id="refresh" class="btn btn-info waves-effect m-r-20" onclick="refreshPage()"><i class="material-icons" style="color:white">refresh</i><span>refresh</span></button>
                             </ul>
                         </div>
                         <div class="body">
                             <form>
+                                <div class="row clearfix" id="message">
+                                </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                         <h2 class="card-inside-title">Nomor Invoice</h2>
@@ -46,7 +38,6 @@
                                             <div class="form-line">
                                                 <input readonly type="text" id="nomor_invoice" name="nomor_invoice" class="form-control">
                                                 <input  id="editId" name="editId" type="hidden">
-
                                             </div>
                                         </div>
                                     </div>
@@ -75,7 +66,6 @@
                                                     if ($pro->id == $proid->product_id) {
                                                         ?>
                                                 <option value="<?= $pro->id ?>"><?= $pro->name_product ?></option>
-                                                <!-- <input type="hidden" name="product_id" id="product_id"> -->
                                             <?php
                                                     }
                                                 }
@@ -101,23 +91,16 @@
                                                 </div>
                                             </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                         <button type="button" id="btnSave" class="btn btn-success waves-effect m-r-20" onclick="submitSave()"><i class="material-icons" style="color:white">add</i><span>tambah data</span></button>
                                         <button style="display:none;" type="button" id="btnEdit" onclick="editDataSubmit()" class="btn btn-primary waves-effect m-r-20"><i class="material-icons" style="color:white">create</i><span> edit data</span></button>
                                     </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <!-- <div class="alert alert-danger"> -->
-                                        <!-- <strong id="message">Gagal Menyimpan</strong> -->
-                                    <!-- </div> -->
-                                    <center><p id="message"></p></center>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-           
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -153,8 +136,10 @@
 </section>
 
 <script>
-    // $("#selectBarang").val(1);
-    // $("#selectBarang").val(1).change();
+    function refreshPage() {
+        location.reload();
+    }
+
     $('#selectBarang').change(function () {
         var id = $('#selectBarang').val();
         $.ajax({
@@ -163,12 +148,18 @@
             url   : '<?= base_url('transaksi/getIdSatuan') ?>',
             dataType: 'json',
             success : function(res) {
-                console.log(res.total);
                 if ( id != '') {
-                    $('#cektotal').empty()
-                    $('#cektotal').append('<p style="color:red"> stok barang '+res.total+'</p>')
-                    // console.log(res.unit_name);
-                    $('#selectSatuan').val(res.cekid.unit_name);
+                    if (res.total != 0) {
+                        $('#cektotal').empty()
+                        $('#cektotal').append('<p style="color:red"> stok barang '+res.total+'</p>');
+                        $('#selectSatuan').val(res.cekid.unit_name);
+                        $('#jumlah').attr('disabled',false);                       
+                    }else{
+                        $('#cektotal').empty()
+                        $('#cektotal').append('<p style="color:red"> stok barang '+res.total+'</p>');
+                        $('#selectSatuan').val(res.cekid.unit_name);
+                        $('#jumlah').attr('disabled',true);
+                    }
                 }else{
                     $('#cektotal').empty()
                     $('#selectSatuan').val('');
@@ -221,7 +212,7 @@
                                 '<td>'+ data[i].name_product    +'</td>' +
                                 '<td>'+ data[i].unit_name   +'</td>' +
                                 '<td>'+ data[i].total       +'</td>' +
-                                '<td><button type="button" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-20" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
+                                '<td><button type="button" title="edit" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-20" title="edit" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
                             '</tr>';
                     }
                     $('#dataTable').html(baris);
@@ -247,7 +238,8 @@
                 url  : '<?=  base_url('transaksi/saveData/keluar') ?>',
                 dataType : 'json',
                 success : function(res) {
-                    $('#message').html(res.message)
+                    $('#message').empty();    
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
                         showData();
                         $('#tanggal_keluar').val("");
@@ -256,6 +248,8 @@
                         $('#jumlah').val('');
                         fieldForm();
                         $('#cektotal').empty()
+                        $('#message').empty();    
+                        $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Masukkan barang sukses</div>');
                     }
                 }                
             });
@@ -270,28 +264,27 @@
             url  : '<?= base_url('transaksi/getIdData/keluar') ?>',
             dataType : 'json',
             success : function (id) {
-                // console.log(id);
-                $('#editId').val(id.id);
-                $('#nomor_invoice ').val(id.nomor_invoice);
-                $('#tanggal_keluar').val(id.tanggal.split('-').reverse().join('/'));
-                // $("#selectBarang").val(1).change();
-                // $("#selectBarang").val(1);
-                // $('#selectSatuan').val(id.unit_id);
-                $('#jumlah').val(id.total);
+                $('#message').empty();                
+                $('#cektotal').empty()
+                $('#cektotal').append('<p style="color:red"> stok barang '+id.total+'</p>');
+                $('#editId').val(id.result.id);
+                $('#nomor_invoice ').val(id.result.nomor_invoice);
+                $('#tanggal_keluar').val(id.result.tanggal.split('-').reverse().join('/'));
+                $("#selectBarang").val(id.result.product_id);
+                $('#selectSatuan').val(id.result.unit_name);
+                $('#jumlah').val(id.result.total);
             }
         });
     }
 
       // $('#simpaubahDatanData').on('click', function () {
         function editDataSubmit() {
-            var id = $("[name='editId']").val();
+            var id = $("#editId").val();
             var nomor_invoice = $('#nomor_invoice').val();
             var tanggal_keluar = $('#tanggal_keluar').val();
             var selectBarang  = $('#selectBarang').val();
             var selectSatuan = $('#selectSatuan').val();
             var jumlah = $('#jumlah').val();
-        
-            // console.log(id);
             $.ajax({
                 type : 'POST',
                 data : {
@@ -305,8 +298,8 @@
                 url : '<?= base_url('transaksi/updateData/keluar') ?>',
                 dataType : 'json',
                 success : function(res) {
-                    // console.log(res.message);
-                    $('#message').html(res.message)
+                    $('#message').empty();
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
                         showData();
                         $('#tanggal_keluar').val("");
@@ -314,6 +307,8 @@
                         $('#selectSatuan').val(''); 
                         $('#jumlah').val('');
                         fieldForm();
+                        $('#message').empty();    
+                        $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Edit barang sukses</div>');
                         $('#btnEdit').hide();
                         $('#btnSave').show();
                     }
@@ -334,7 +329,13 @@
                     success : function(res) {
                         if (res.message == '') {
                         showData();
+                        $('#tanggal_keluar').val("");
+                        $('#selectBarang').val("");
+                        $('#selectSatuan').val('');
+                        $('#cektotal').empty()
+                        $('#jumlah').val('');
                         fieldForm();
+                        $('#message').empty();    
                         }
                     }
                 });

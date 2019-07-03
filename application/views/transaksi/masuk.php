@@ -22,25 +22,14 @@
                         <div class="header">
                             <h2>
                                 FORM BARANG MASUK
-                                <!-- <small>With floating label</small> -->
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
+                            <ul class="header-dropdown"  style="margin-right:-20px; margin-top:-10px;">
+                                <button type="button" id="refresh" class="btn btn-info waves-effect m-r-20" onclick="refreshPage()"><i class="material-icons" style="color:white">refresh</i><span>refresh</span></button>
                             </ul>
                         </div>
                         <div class="body">
                             <form>
                                 <div class="row clearfix" id="message">
-                                    
                                 </div>
                                 <div class="row clearfix">
                                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
@@ -49,7 +38,6 @@
                                             <div class="form-line">
                                                 <input readonly type="text" id="nomor_invoice" name="nomor_invoice" class="form-control">
                                                 <input  id="editId" name="editId" type="hidden">
-
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +57,7 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
-                                       <h2 class="card-inside-title">Barang</h2>
+                                        <h2 class="card-inside-title">Barang</h2>
                                         <select class="form-control" id="selectBarang">
                                             <option value="">--Pilih Barang--</option>
                                             <?php foreach ($product as $pro) {?>
@@ -95,24 +83,16 @@
                                                 </div>
                                             </div>
                                     </div>
-                                  
                                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                         <button type="button" id="btnSave" class="btn btn-success waves-effect m-r-20" onclick="submitSave()"><i class="material-icons" style="color:white">add</i><span>tambah data</span></button>
                                         <button style="display:none;" type="button" id="btnEdit" onclick="editDataSubmit()" class="btn btn-primary waves-effect m-r-20"><i class="material-icons" style="color:white">create</i><span> edit data</span></button>
                                     </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <!-- <div class="alert alert-danger"> -->
-                                        <!-- <strong id="message">Gagal Menyimpan</strong> -->
-                                    <!-- </div> -->
-                                    <center><p id="message"></p></center>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-           
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -148,6 +128,9 @@
 </section>
 
 <script>
+    function refreshPage() {
+        location.reload();
+    }
     $('#selectBarang').change(function () {
         var id = $('#selectBarang').val();
         $.ajax({
@@ -204,7 +187,7 @@
                                 '<td>'+ data[i].name_product    +'</td>' +
                                 '<td>'+ data[i].unit_name   +'</td>' +
                                 '<td>'+ data[i].total       +'</td>' +
-                                '<td><button type="button" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" id="submit" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-20" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
+                                '<td><button type="button" title="edit" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" id="submit" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-20" title="hapus" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
                             '</tr>';
                     }
                     
@@ -218,8 +201,7 @@
         var nomor_invoice   = $('#nomor_invoice').val();
         var tanggal_masuk   = $('#tanggal_masuk').val();
         var selectBarang    = $('#selectBarang').val();
-        var jumlah = $('#jumlah').val();
-        
+        var jumlah          = $('#jumlah').val();
         $.ajax({
                 type : "POST",
                 data : {
@@ -231,19 +213,17 @@
                 url  : '<?=  base_url('transaksi/saveData/masuk') ?>',
                 dataType : 'json',
                 success : function(res) {
+                    $('#message').empty();    
                     $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
                         showData();
                         $('#tanggal_masuk').val("");
-                        // console.log($('#selectBarang option'));
                         $('#selectSatuan').val("");
-                        // $('#selectSatuan').selectpicker('refresh');
+                        $('#selectBarang').val('');
                         $('#jumlah').val('');
                         fieldForm();
                         $('#message').empty();    
-                        $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Masukkan barang sukses</div>')
-
-                        // $('#message').empty();
+                        $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Masukkan barang sukses</div>');
                     }
                 }                
             });
@@ -258,12 +238,12 @@
             url  : '<?= base_url('transaksi/getIdData/masuk') ?>',
             dataType : 'json',
             success : function (id) {
-                // console.log(id);
+                $('#message').empty();                    
                 $('#editId').val(id.id);
                 $('#nomor_invoice ').val(id.nomor_invoice);
                 $('#tanggal_masuk').val(id.tanggal.split('-').reverse().join('/'));
-                // $("#selectBarang").val(1);
-                // $('#selectSatuan').val(id.unit_id);
+                $("#selectBarang").val(id.product_id);
+                $('#selectSatuan').val(id.unit_name);
                 $('#jumlah').val(id.total);
             }
         });
@@ -271,14 +251,12 @@
 
       // $('#simpaubahDatanData').on('click', function () {
         function editDataSubmit() {
-            var id = $("[name='editId']").val();
+            var id = $("#editId").val();
             var nomor_invoice = $('#nomor_invoice').val();
             var tanggal_masuk = $('#tanggal_masuk').val();
             var selectBarang  = $('#selectBarang').val();
             var selectSatuan = $('#selectSatuan').val();
             var jumlah = $('#jumlah').val();
-        
-            // console.log(id);
             $.ajax({
                 type : 'POST',
                 data : {
@@ -292,8 +270,8 @@
                 url : '<?= base_url('transaksi/updateData/masuk') ?>',
                 dataType : 'json',
                 success : function(res) {
-                    // console.log(res.message);
-                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>')
+                    $('#message').empty();    
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
                         showData();
                         $('#tanggal_masuk').val("");
@@ -302,7 +280,7 @@
                         $('#jumlah').val('');
                         fieldForm();
                         $('#message').empty();    
-                        $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Edit barang sukses</div>')
+                        $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Edit barang sukses</div>');
                         $('#btnEdit').hide();
                         $('#btnSave').show();
                     }

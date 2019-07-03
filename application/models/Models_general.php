@@ -3,8 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Models_general extends CI_Model
 {
-    public function showData($table, $type = null)
-    {
+    public function showData($table, $type = null){
         if ($type == null) {
             $this->db->order_by('id', 'DESC');
             return $this->db->get($table)->result();
@@ -21,38 +20,38 @@ class Models_general extends CI_Model
         return $this->db->query($query)->row();
     }
 
-    public function saveData($table, $data)
-    {
+    public function saveData($table, $data){
         $this->db->insert($table, $data);
     }
 
-    public function getData($table, $field, $records)
-    {
-        $query = "SELECT * FROM $table WHERE $field = '$records'";
-        return $this->db->query($query)->row_array();
+    public function getData($table, $field, $records, $join=null){
+        if ($join==null) {
+            $query = "SELECT * FROM $table WHERE $field = '$records'";
+            return $this->db->query($query)->row_array();
+        }else {
+            $query = "SELECT $table.id, nomor_invoice, tanggal, product_id, total, unit.unit_name FROM $table $join product ON $table.product_id = product.id $join unit on product.unit_product_id = unit.id WHERE $table.$field = '$records'";
+            return $this->db->query($query)->row_array();
+        }
+
     }
 
-    public function updateData($id, $table, $data)
-    {
+    public function updateData($id, $table, $data){
         $this->db->where('id', $id);
         $this->db->update($table, $data);
     }
 
-    public function deleteData($id, $table)
-    {
+    public function deleteData($id, $table){
         $this->db->delete($table, ['id' => $id]);
     }
 
     // TRANSAKSI
-    public function getIdLimit($table, $flag)
-    {
+    public function getIdLimit($table, $flag){
         $query = "SELECT count(*) as jml FROM $table where nomor_invoice like '%$flag%'";
         return $this->db->query($query)->row();
     }
 
 
-    public function showAllData($table, $type = null)
-    {
+    public function showAllData($table, $type = null){
         if ($type == null) {
             $query = "SELECT $table.product_id, product.code_product, product.name_product, unit.unit_name FROM $table left join product on $table.product_id=product.id left join unit on product.unit_product_id=unit.id GROUP BY product_id DESC";
             return $this->db->query($query)->result();
@@ -62,36 +61,31 @@ class Models_general extends CI_Model
         }
     }
 
-    public function getFirstStock($product_id, $type)
-    {
+    public function getFirstStock($product_id, $type){
         $this->db->where("product_id = $product_id and nomor_invoice like '%$type%'");
         $this->db->order_by("tanggal");
         $this->db->limit(1);
         return $this->db->get("transaksi")->row();
     }
 
-    public function getSum($product_id, $type)
-    {
+    public function getSum($product_id, $type){
         $this->db->select("sum(total) as sum");
         $this->db->where("nomor_invoice like '%$type%' and product_id = $product_id");
         return $this->db->get("transaksi")->row();
     }
 
-    public function getIdproduct()
-    {
+    public function getIdproduct(){
         $query = "SELECT DISTINCT product_id FROM transaksi";
         return $this->db->query($query)->result();
     }
 
 
-    public function getDataUser($table, $username, $password)
-    {
+    public function getDataUser($table, $username, $password){
         $query = "SELECT * FROM $table WHERE username = '$username' AND password ='$password'";
         return $this->db->query($query)->num_rows();
     }
 
-    public function isLoggedIn()
-    {
+    public function isLoggedIn(){
         if (!isset($_SESSION['loggedIn'])) {
             return false;
         } else {

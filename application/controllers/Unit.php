@@ -57,5 +57,7 @@ class Unit extends CI_Controller
     public function deleteData(){
         $id = $this->input->post('id');
         $this->model->deleteData($id,'unit');
+        $result['message'] = "";
+        echo json_encode($result);       
     }
 }
