@@ -27,10 +27,11 @@
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kode Barang</th>
-                                            <th>Nama Barang</th>
-                                            <th>Action</th>
+                                            <th  width="5%">No</th>
+                                            <th  width="25%">Kode Barang</th>
+                                            <th  width="25%">Nama Barang</th>
+                                            <th  width="25%">Satuan</th>
+                                            <th  width="15%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="dataTable">
@@ -85,14 +86,12 @@
                                     <label for="email_address_2">Satuan</label>
                                 </div>
                                 <div class="col-lg-9 col-md-10 col-sm-8 col-xs-7">
-                                    <div class="form-group">
-                                    <select class="form-control show-tick" id="select_satuan">
+                                    <select class="form-control" id="select_satuan" style="margin-left:-15px;">
                                         <option value="">--Pilih satuan--</option>
                                         <?php foreach ($unit as $unit) { ?>
                                             <option value="<?= $unit->id ?>"><?= $unit->unit_name ?></option>
                                         <?php }?>
                                     </select>
-                                </div>
                                 </div>
                             </div>
                         </form>
@@ -125,7 +124,7 @@
                                 '<td>'+ data[i].code_product +'</td>' +
                                 '<td>'+ data[i].name_product  +'</td>' +
                                 '<td>'+ data[i].unit_name  +'</td>' +
-                                '<td><button type="button" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-20" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
+                                '<td><button title="edit" type="button" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a title="hapus" class="btn btn-danger waves-effect m-r-20" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
                             '</tr>';
                     }
                     $('#dataTable').html(baris);
@@ -156,6 +155,7 @@
                         $('#message').empty();    
                         $('#product_code').val('');
                         $('#product_name').val('');
+                        $('#select_satuan').val('');
                     }
                 }                
             });
@@ -164,11 +164,11 @@
 
         function submit(action) {
             if (action == 'addbtn') {
-                // console.log('oke');
                 $('#saveDatabtn').show();
                 $('#editDatabtn').hide();
                 $('#product_code').val('');
                 $('#product_name').val('');
+                $('#select_satuan').val('');
             }else{
                 $('#saveDatabtn').hide();
                 $('#editDatabtn').show();
@@ -178,10 +178,10 @@
                     url  : '<?= base_url('product/getId') ?>',
                     dataType : 'json',
                     success : function (id) {
-                        // console.log(id);
                         $('#editId').val(id.id);
                         $('#product_code').val(id.code_product);
                         $('#product_name').val(id.name_product);
+                        $('#select_satuan').val(id.unit_product_id);
                     }
                 });
             }
