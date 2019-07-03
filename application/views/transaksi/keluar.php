@@ -78,7 +78,7 @@
                                         <h2 class="card-inside-title">Jumlah</h2>
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input  id="jumlah" name="jumlah" type="number" class="form-control">
+                                                    <input  id="jumlah" name="jumlah" type="number" name="quantity" min="1" max="5" class="form-control">
                                                 </div>
                                                 <div id="cektotal"></div>
                                             </div>
@@ -150,7 +150,7 @@
             success : function(res) {
                 if ( id != '') {
                     if (res.total != 0) {
-                        $('#cektotal').empty()
+                        $('#cektotal').empty();
                         $('#cektotal').append('<p style="color:red"> stok barang '+res.total+'</p>');
                         $('#selectSatuan').val(res.cekid.unit_name);
                         $('#jumlah').attr('disabled',false);                       
@@ -302,6 +302,7 @@
                     $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
                         showData();
+                        $('#cektotal').empty();
                         $('#tanggal_keluar').val("");
                         $('#selectBarang').val("");
                         $('#selectSatuan').val(''); 

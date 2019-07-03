@@ -68,7 +68,7 @@ class Transaksi extends CI_Controller
                 }elseif ($idBarang == "") {
                     $result['message'] = "barang harus disi";
                 }elseif ($jumlah == '') {
-                    $result['message'] = "jumlah harus diisi";
+                    $result['message'] = "jumlah harus diisi atau 0 dibawah";
                 }else{
                     $result['message'] = "";
                     $ArrTanggal = explode("/",$tanggal_masuk);
@@ -119,14 +119,12 @@ class Transaksi extends CI_Controller
                 echo json_encode($result);
                 break;
             case 'keluar':
-
                 $id = $this->input->post('id');
                 $data['result'] = $this->model->getData('transaksi', 'id', $id, 'JOIN');
                 $productid = $data['result']['product_id'];
                 $masuk = $this->model->getSum($productid, 'BM')->sum;
                 $keluar = $this->model->getSum($productid, 'BK')->sum;
                 $data['total'] = $masuk - $keluar;
-                // $data['cekid'] = $this->model->showDataProduct($productid);
                 echo json_encode($data);
                 break;
         }
