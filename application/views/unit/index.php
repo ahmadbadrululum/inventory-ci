@@ -3,12 +3,12 @@
             <div class="block-header">
                 <ol class="breadcrumb">
                     <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="material-icons">home</i> Home
-                                    </a>
+                        <a href="javascript:void(0);">
+                            <i class="material-icons">home</i> Home
+                        </a>
                     </li>
                     <li class="active">
-                                    <i class="material-icons">library_books</i>  Satuan
+                        <i class="material-icons">library_books</i>  Satuan
                     </li>
                 </ol>
             </div>
@@ -18,8 +18,8 @@
                     <div class="card">
                         <div class="header">
                                 <h2>DATA SATUAN</h2>
-                            <div class="header-dropdown m-r--5">
-                                <button type="button" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('addbtn')"><i class="material-icons" style="color:white">add</i><span>tambah satuan</span></button>
+                            <div class="header-dropdown" style="margin-right:-20px; margin-top:-10px;">
+                                <button type="button" title="tambah" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('addbtn')"><i class="material-icons" style="color:white">add</i><span>tambah satuan</span></button>
                             </div>
                             
                         </div>
@@ -28,9 +28,9 @@
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama satuan</th>
-                                            <th>Action</th>
+                                            <th width="10%">No</th>
+                                            <th width="70%">Nama satuan</th>
+                                            <th width="30%">Action</th>
                                         </tr>
                                     </thead>
 
@@ -54,7 +54,6 @@
                     <div class="modal-body">
                         <center><p id="message"></p></center>
                         <form class="form-horizontal">
-                         
                             <div class="row clearfix">
                                 <div class="col-lg-3 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                     <label for="email_address_2">Nama Satuan</label>
@@ -96,7 +95,7 @@
                             '<tr>'+
                                 '<td>'+ no++ +'</td>' +
                                 '<td>'+ data[i].unit_name  +'</td>' +
-                                '<td><button type="button" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-20" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
+                                '<td><button type="button" title="edit" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button> <a class="btn btn-danger  waves-effect m-r-20" title="hapus" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
                             '</tr>';
                     }
                     $('#dataTable').html(baris);
@@ -115,11 +114,12 @@
                 url  : '<?= base_url('unit/saveData') ?>',
                 dataType : 'json',
                 success : function(res) {
-                //    console.log(res);
-                    $('#message').html(res.message)
+                    $('#message').empty();    
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
                         $('#form').modal('hide');
                         showData();
+                        $('#message').empty();    
                         $('#unit_name').val('');
                     }
                 }                
@@ -165,8 +165,10 @@
                 url : '<?= base_url('unit/updateData') ?>',
                 dataType : 'json',
                 success : function(res) {
-                    $('#message').html(res.message)
+                    $('#message').empty();    
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
+                        $('#message').empty();    
                         $('#form').modal('hide');
                         showData();
                     }
@@ -183,8 +185,10 @@
                     data : {id:id},
                     url  : '<?= base_url('unit/deleteData') ?>',
                     dataType : 'json',
-                    success : function() {
-                        showData();
+                    success : function(res) {
+                        if (res.message == '') {
+                            showData();
+                        }
                     }
                 });
             }

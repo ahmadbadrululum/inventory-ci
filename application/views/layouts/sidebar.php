@@ -42,10 +42,10 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="<?= base_url('product') ?>">Barang</a>
+                                <a href="<?= base_url('unit') ?>">Satuan</a>
                             </li>
                             <li>
-                                <a href="<?= base_url('unit') ?>">Satuan</a>
+                                <a href="<?= base_url('product') ?>">Barang</a>
                             </li>
                         </ul>
                     </li>
