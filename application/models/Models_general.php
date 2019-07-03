@@ -6,6 +6,7 @@ class Models_general extends CI_Model
     public function showData($table, $type = null)
     {
         if ($type == null) {
+            $this->db->order_by('id', 'DESC');
             return $this->db->get($table)->result();
         }
         $this->db->where("nomor_invoice like '%$type%'");
@@ -13,7 +14,7 @@ class Models_general extends CI_Model
     }
     public function showDataProduct($id = null){
         if ($id == null) {
-            $query = "SELECT product.id, code_product, name_product, unit.unit_name FROM product JOIN unit on unit.id = product.unit_product_id";
+            $query = "SELECT product.id, code_product, name_product, unit.unit_name FROM product JOIN unit on unit.id = product.unit_product_id order by id desc";
             return $this->db->query($query)->result();
         }
         $query = "SELECT product.id, code_product, name_product, unit.unit_name FROM product JOIN unit on unit.id = product.unit_product_id WHERE product.id = $id";

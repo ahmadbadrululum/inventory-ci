@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="header">
                                 <h2>DATA BARANG</h2>
-                            <div class="header-dropdown m-r--5">
+                            <div class="header-dropdown" style="margin-right:-20px; margin-top:-10px;">
                             <button type="button" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('addbtn')"><i class="material-icons" style="color:white">add</i><span>tambah barang</span></button>
                             </div>
                         </div>
@@ -33,7 +33,6 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-
                                     <tbody id="dataTable">
                                     </tbody>
                                 </table>
@@ -149,10 +148,12 @@
                 url  : '<?= base_url('product/saveData') ?>',
                 dataType : 'json',
                 success : function(res) {
-                    $('#message').html(res.message)
+                    $('#message').empty();    
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
                         $('#form').modal('hide');
                         showData();
+                        $('#message').empty();    
                         $('#product_code').val('');
                         $('#product_name').val('');
                     }
@@ -203,8 +204,10 @@
                 url : '<?= base_url('product/updateData') ?>',
                 dataType : 'json',
                 success : function(res) {
-                    $('#message').html(res.message)
+                    $('#message').empty();    
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
+                        $('#message').empty();    
                         $('#form').modal('hide');
                         showData();
                     }
@@ -224,7 +227,7 @@
                     success : function(res) {
                         if (res.message == '') {
                         showData();
-                    }
+                        }
                     }
                 });
             }
