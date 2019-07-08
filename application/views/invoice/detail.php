@@ -31,7 +31,9 @@
                                 <thead>
                                     <tr>                    
                                         <th class="text-right">Nomor invoice</th>
-                                        <th colspan="6"><strong><?= $invoice['no_invoice'] ?></strong></th>
+                                        <th colspan="6"><strong><?= $invoice['no_invoice'] ?></strong><script>
+                                        
+                                        </script></th>
                                     </tr>
                                     <tr>
                                         <th class="text-right">Keterangan</th>
@@ -60,6 +62,13 @@
     </div>
 </section>
 <script> 
+//  var angka = 15000000;
+//  var reverse = angka.toString().split('').reverse().join(''),
+//  ribuan = reverse.match(/\d{1,3}/g);
+//  ribuan = ribuan.join('.').split('').reverse().join('');
+//  document.write(ribuan);
+
+ 
     function refreshPage() {
         location.reload();
     }
@@ -74,7 +83,12 @@
         dataType: 'json',
         success : function(res) {
             if(res.invoice.catatan == null){res.invoice.catatan = '' }
-            if(res.sum.total_akhir == null){  res.sum.total_akhir = 'Rp. -' }
+            if(res.sum.total_akhir == null){ var total_akhir = res.sum.total_akhir = 'Rp. -' }
+            else{
+                var reverse = res.sum.total_akhir.toString().split('').reverse().join(''),
+                total_akhir = reverse.match(/\d{1,3}/g);
+                total_akhir = total_akhir.join('.').split('').reverse().join('');
+            }
             // ---- admin1
             if (session_role === 'cfo') {
                 var button2 = '';
@@ -105,8 +119,6 @@
             }
             // ==== admin2
             
-
-
             var html = ' <tr>';
                 html += ' <td>#</td>';
                 html += ' <td id="nama_barang" contenteditable></td>';
@@ -118,19 +130,27 @@
                 html += ' </tr>';
             var no = 1;
             for (let i = 0; i < res.data.length; i++) {
+                var reverse = res.data[i].harga.toString().split('').reverse().join(''),
+                harga = reverse.match(/\d{1,3}/g);
+                harga = harga.join('.').split('').reverse().join('');
+
+                var reverse = res.data[i].total.toString().split('').reverse().join(''),
+                total = reverse.match(/\d{1,3}/g);
+                total = total.join('.').split('').reverse().join('');
+
                 html += '<tr>';
                 html += '<td>'+ no++ +'</td>';
                 html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="nama_barang" contenteditable>'+res.data[i].nama_barang+'</td>';
-                html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="harga" readonly>'+res.data[i].harga+'</td>';
+                html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="harga" readonly>'+harga+'</td>';
                 html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="quantity" readonly>'+res.data[i].quantity+'</td>';
                 html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="satuan" contenteditable>'+res.data[i].satuan+'</td>';
-                html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="total">'+res.data[i].total+'</td>';
+                html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="total">'+total+'</td>';
                 html += '<td><button type="submit" name="delete_btn" id="'+res.data[i].id+'" class="btn btn-danger btn_delete"><i class="material-icons" style="color:white">delete</i><span>hapus</span></button></td></tr>';
             }            
             
             html += '<tr>';
             html += '<td  colspan="5"class="text-right"><strong>Total akhir</strong></td>';
-            html += '<td colspan="2"><strong>Rp. '+ res.sum.total_akhir +'</strong></td>';
+            html += '<td colspan="2"><strong>Rp. '+ total_akhir +'</strong></td>';
             html += '</tr>';
             html += '<tr>';
             html +='<td colspan="5" rowspan="2"><div class="form-group"><label for="catatan">Catatan:</label><textarea class="form-control" rows="7" id="catatan">'+ res.invoice.catatan +'</textarea></div></strong></td>';
