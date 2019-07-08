@@ -74,7 +74,7 @@
         dataType: 'json',
         success : function(res) {
             if(res.invoice.catatan == null){res.invoice.catatan = '' }
-            if(res.sum.total_akhir == null){  res.sum.total_akhir = '-' }
+            if(res.sum.total_akhir == null){  res.sum.total_akhir = 'Rp. -' }
             // ---- admin1
             if (session_role === 'cfo') {
                 var button2 = '';
@@ -89,7 +89,7 @@
                 if (res.invoice.status_1 == 0) { var button1 =      '<h3><span class="label label-warning">Belum disetujui</span></h3>' }
                 else if(res.invoice.status_1 == 1){ var button1 =   '<h3><span class="label label-success">Disetujui</span></h3>'}
                 else { var button1 = '<h3><span class="label label-danger">Tidak Disetujui</span></h3>'}
-
+                // document.getElementById("catatan").disabled = true;
                 if (res.invoice.status_2 == 0) { var button2 =      '<h3><span class="label label-warning">Belum disetujui</span></h3>' }
                 else if(res.invoice.status_2 == 1){ var button2 =   '<h3><span class="label label-success">Disetujui</span></h3>'}
                 else { var button2 =                                '<h3><span class="label label-danger">Tidak disetujui</span></h3>'}
@@ -130,7 +130,7 @@
             
             html += '<tr>';
             html += '<td  colspan="5"class="text-right"><strong>Total akhir</strong></td>';
-            html += '<td colspan="2"><strong>'+ res.sum.total_akhir +'</strong></td>';
+            html += '<td colspan="2"><strong>Rp. '+ res.sum.total_akhir +'</strong></td>';
             html += '</tr>';
             html += '<tr>';
             html +='<td colspan="5" rowspan="2"><div class="form-group"><label for="catatan">Catatan:</label><textarea class="form-control" rows="7" id="catatan">'+ res.invoice.catatan +'</textarea></div></strong></td>';
