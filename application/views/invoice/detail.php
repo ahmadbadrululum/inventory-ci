@@ -81,15 +81,18 @@
                 if (res.invoice.status_1 == 0) { var button1 = '<button id="cek_setuju" class="btn btn-warning btn-lg" style="margin-left:20px;">Belum setuju</button>' }
                 else if(res.invoice.status_1 == 1){ var button1 = '<button id="cek_setuju" class="btn btn-success btn-lg" style="margin-left:20px;">Setuju</button></div>'}
                 else { var button1 = '<button id="cek_setuju" class="btn btn-danger btn-lg" style="margin-left:20px;">Tidak Setuju</button></div>'}
-                
-            }else if(session_role == 'admin'){
-                if (res.invoice.status_1 == 0) { var button1 = '<button disabled class="btn btn-warning btn-lg" style="margin-left:20px;">Belum setuju</button>' }
-                else if(res.invoice.status_1 == 1){ var button1 = '<button disabled class="btn btn-success btn-lg" style="margin-left:20px;">Setuju</button></div>'}
-                else { var button1 = '<button disabled class="btn btn-danger btn-lg" style="margin-left:20px;">Tidak Setuju</button></div>'}
 
-                if (res.invoice.status_2 == 0) { var button2 = '<button disabled class="btn btn-warning btn-lg" style="margin-left:20px;">Belum setuju</button>' }
-                else if(res.invoice.status_2 == 1){ var button2 = '<button disabled class="btn btn-success btn-lg" style="margin-left:20px;">Setuju</button></div>'}
-                else { var button2 = '<button disabled class="btn btn-danger btn-lg" style="margin-left:20px;">Tidak Setuju</button></div>'}
+                if (res.invoice.status_2 == 0) { var button2 = '<button id="cek_setuju2" class="btn btn-warning btn-lg" style="margin-left:20px;">Belum setuju</button>' }
+                else if(res.invoice.status_2 == 1){ var button2 = '<button id="cek_setuju2" class="btn btn-success btn-lg" style="margin-left:20px;">Setuju</button></div>'}
+                else { var button2 = '<button id="cek_setuju2" class="btn btn-danger btn-lg" style="margin-left:20px;">Tidak Setuju</button></div>'}
+            }else if(session_role == 'admin'){
+                if (res.invoice.status_1 == 0) { var button1 =      '<h3><span class="label label-warning">Belum disetujui</span></h3>' }
+                else if(res.invoice.status_1 == 1){ var button1 =   '<h3><span class="label label-success">Disetujui</span></h3>'}
+                else { var button1 = '<h3><span class="label label-danger">Tidak Disetujui</span></h3>'}
+
+                if (res.invoice.status_2 == 0) { var button2 =      '<h3><span class="label label-warning">Belum disetujui</span></h3>' }
+                else if(res.invoice.status_2 == 1){ var button2 =   '<h3><span class="label label-success">Disetujui</span></h3>'}
+                else { var button2 =                                '<h3><span class="label label-danger">Tidak disetujui</span></h3>'}
             }
             else{
                 if (res.invoice.status_1 == 0) { var button1 = '<button id="cek_setuju" class="btn btn-warning btn-lg" style="margin-left:20px;">Belum setuju</button>' }
@@ -143,7 +146,7 @@
                             +'<option value="2">Tidak disetujui</option>'
                         +'</select>'
                         +'</div>'
-                        +'<div class="col-md-2">'
+                        +'<div class="col-md-6">'
                             +button1
                         +'</div>'
                     +'</td>';
