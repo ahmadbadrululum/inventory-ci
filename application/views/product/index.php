@@ -18,13 +18,13 @@
                     <div class="card">
                         <div class="header">
                                 <h2>DATA BARANG</h2>
-                            <div class="header-dropdown" style="margin-right:-20px; margin-top:-10px;">
-                            <button type="button" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('addbtn')"><i class="material-icons" style="color:white">add</i><span>tambah barang</span></button>
+                            <div class="header-dropdown" style="margin-top:-10px;">
+                            <button type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#form" onclick="submit('addbtn')"><i class="material-icons" style="color:white">add</i><span>tambah barang</span></button>
                             </div>
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th  width="5%">No</th>
@@ -124,7 +124,7 @@
                                 '<td>'+ data[i].code_product +'</td>' +
                                 '<td>'+ data[i].name_product  +'</td>' +
                                 '<td>'+ data[i].unit_name  +'</td>' +
-                                '<td><button title="edit" type="button" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a title="hapus" class="btn btn-danger waves-effect m-r-20" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
+                                '<td><button title="edit" type="button" class="btn btn-primary waves-effect m-r-5" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a title="hapus" class="btn btn-danger waves-effect m-r-5" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
                             '</tr>';
                     }
                     $('#dataTable').html(baris);

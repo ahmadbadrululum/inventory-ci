@@ -49,7 +49,8 @@
                     <div class="card">
                         <div class="body">
                             <form>
-                                <div class="msg"><strong> Register a new membership</strong></div>
+                                <div class="msg" id="addakun"><strong> Register a new akun</strong></div>
+                                <div class="msg" style="display:none" id="editakun"><strong> Edit akun</strong></div>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="material-icons">person</i>
@@ -141,12 +142,12 @@
                 var baris = '';
                 var no = 1;
                 for (let i = 0; i < data.length; i++) { 
-                    
+                    if (data[i].role == 'cfo') { data[i].role = 'manajemen'}
                     baris += 
                         '<tr>'+
                             '<td>'+ no++ +'</td>' +
-                            '<td>'+ data[i].username   +'</td>' +
-                            '<td>'+ data[i].role   +'</td>' +
+                            '<td>'+ data[i].username  +'</td>' +
+                            '<td>'+ data[i].role +'</td>' +
                             '<td><button type="button" title="edit" class="btn btn-warning waves-effect m-r-20" data-target="#form" id="submit" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><button class="btn btn-danger waves-effect m-r-20" title="hapus" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></button></td>'+
                         '</tr>';
                 }
@@ -204,6 +205,8 @@
     function submit(action) {
         $('#btnSave').hide();
         $('#btnEdit').show();
+        $('#addakun').hide();
+        $('#editakun').show();
         $.ajax({
             type : "POST",
             data : {id:action},
@@ -225,29 +228,43 @@
         var role =     $('#role').val();
         var password = $('#password').val();
         var password_confirm = $('#password_confirm').val();
-        console.log(id);
-        
-        $.ajax({
-            type : 'POST',
-            data : {id:id, username:username, role:role,password:password},
-            url : '<?= base_url('auth/updateUser') ?>',
-            dataType : 'json',
-            success : function(res) {
-                // $('#message').empty();    
-                // $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
-                if (res.message == 'success') {
-                    showData();
-                    $('#username').val('');
-                    $('#role').val('');
-                    $('#password').val('');
-                    $('#password_confirm').val('');
-                    $('#btnSave').show();
-                    $('#btnEdit').hide();
+        if (username == '') 
+            alert ("Please enter username"); 
+        else if (role == '') 
+            alert ("Please enter peran"); 
+        else if (password == '') 
+            alert ("Please enter Password"); 
+        else if (password_confirm == '') 
+            alert ("Please enter role"); 
+        else if (password != password_confirm) { 
+            alert ("\nPassword did not match: Please try again...") 
+            return false; 
+        }
+        else{ 
+            $.ajax({
+                type : 'POST',
+                data : {id:id, username:username, role:role,password:password},
+                url : '<?= base_url('auth/updateUser') ?>',
+                dataType : 'json',
+                success : function(res) {
                     // $('#message').empty();    
-                    // $('#unit_name').val('');
-                }
-            }            
-        });
+                    // $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
+                    if (res.message == 'success') {
+                        showData();
+                        $('#username').val('');
+                        $('#role').val('');
+                        $('#password').val('');
+                        $('#password_confirm').val('');
+                        $('#btnSave').show();
+                        $('#btnEdit').hide();
+                        $('#addakun').show();
+                        $('#editakun').hide();
+                        // $('#message').empty();    
+                        // $('#unit_name').val('');
+                    }
+                }            
+            });
+        }
     }
 
     function deleteData(id){

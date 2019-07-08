@@ -64,14 +64,14 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th width="5%">No</th>
                                             <th width="20%">Nomor Invoice</th>
                                             <th width="30%">Keterangan</th>
                                             <th width="15%">Status</th>
-                                            <th width="17%">Action</th>
+                                            <th width="15%">Action</th>
                                         </tr>
                                     </thead>
 

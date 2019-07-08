@@ -109,17 +109,17 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nomor Invoice</th>
-                                            <th>Tanggal keluar</th>
-                                            <th>Kode Barang</th>
-                                            <th>Nama Barang</th>
-                                            <th>Satuan</th>
-                                            <th>Jumlah</th>
-                                            <th>Action</th>
+                                            <th width="5%;">No</th>
+                                            <th width="10%;">Nomor Invoice</th>
+                                            <th width="13%;">Tanggal keluar</th>
+                                            <th width="13%;">Kode Barang</th>
+                                            <th width="15%;">Nama Barang</th>
+                                            <th width="10%;">Satuan</th>
+                                            <th width="10%;">Jumlah</th>
+                                            <th width="10%;">Action</th>
                                         </tr>
                                     </thead>
 
@@ -212,7 +212,7 @@
                                 '<td>'+ data[i].name_product    +'</td>' +
                                 '<td>'+ data[i].unit_name   +'</td>' +
                                 '<td>'+ data[i].total       +'</td>' +
-                                '<td><button type="button" title="edit" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-20" title="edit" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
+                                '<td><button type="button" title="edit" class="btn btn-primary waves-effect m-r-5" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-5" title="edit" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
                             '</tr>';
                     }
                     $('#dataTable').html(baris);

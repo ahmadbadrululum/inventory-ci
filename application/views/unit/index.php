@@ -25,7 +25,7 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th width="10%">No</th>
@@ -95,7 +95,7 @@
                             '<tr>'+
                                 '<td>'+ no++ +'</td>' +
                                 '<td>'+ data[i].unit_name  +'</td>' +
-                                '<td><button type="button" title="edit" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button> <a class="btn btn-danger  waves-effect m-r-20" title="hapus" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
+                                '<td><button type="button" title="edit" class="btn btn-primary waves-effect " data-toggle="modal" data-target="#form" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button> <a class="btn btn-danger  waves-effect" title="hapus" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
                             '</tr>';
                     }
                     $('#dataTable').html(baris);

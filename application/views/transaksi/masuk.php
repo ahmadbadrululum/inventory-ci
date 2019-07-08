@@ -23,8 +23,8 @@
                             <h2>
                                 FORM BARANG MASUK
                             </h2>
-                            <ul class="header-dropdown"  style="margin-right:-20px; margin-top:-10px;">
-                                <button type="button" id="refresh" class="btn btn-info waves-effect m-r-20" onclick="refreshPage()"><i class="material-icons" style="color:white">refresh</i><span>refresh</span></button>
+                            <ul class="header-dropdown"  style="margin-top:-10px;">
+                                <button type="button" id="refresh" class="btn btn-info waves-effect m-r-5" onclick="refreshPage()"><i class="material-icons" style="color:white">refresh</i><span>refresh</span></button>
                             </ul>
                         </div>
                         <div class="body">
@@ -84,8 +84,8 @@
                                             </div>
                                     </div>
                                     <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
-                                        <button type="button" id="btnSave" class="btn btn-success waves-effect m-r-20" onclick="submitSave()"><i class="material-icons" style="color:white">add</i><span>tambah data</span></button>
-                                        <button style="display:none;" type="button" id="btnEdit" onclick="editDataSubmit()" class="btn btn-primary waves-effect m-r-20"><i class="material-icons" style="color:white">create</i><span> edit data</span></button>
+                                        <button type="button" id="btnSave" class="btn btn-success waves-effect m-r-5" onclick="submitSave()"><i class="material-icons" style="color:white">add</i><span>tambah data</span></button>
+                                        <button style="display:none;" type="button" id="btnEdit" onclick="editDataSubmit()" class="btn btn-primary waves-effect m-r-5"><i class="material-icons" style="color:white">create</i><span> edit data</span></button>
                                     </div>
                                 </div>
                             </form>
@@ -101,17 +101,17 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nomor Invoice</th>
-                                            <th>Tanggal Masuk</th>
-                                            <th>Kode Barang</th>
-                                            <th>Nama Barang</th>
-                                            <th>Satuan</th>
-                                            <th>Jumlah</th>
-                                            <th>Action</th>
+                                            <th width="5%;">No</th>
+                                            <th width="10%;">Nomor Invoice</th>
+                                            <th width="13%;">Tanggal Masuk</th>
+                                            <th width="13%;">Kode Barang</th>
+                                            <th width="15%;">Nama Barang</th>
+                                            <th width="10%;">Satuan</th>
+                                            <th width="10%;">Jumlah</th>
+                                            <th width="10%;">Action</th>
                                         </tr>
                                     </thead>
 
@@ -187,7 +187,7 @@
                                 '<td>'+ data[i].name_product    +'</td>' +
                                 '<td>'+ data[i].unit_name   +'</td>' +
                                 '<td>'+ data[i].total       +'</td>' +
-                                '<td><button type="button" title="edit" class="btn btn-primary waves-effect m-r-20" data-toggle="modal" data-target="#form" id="submit" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-20" title="hapus" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
+                                '<td><button type="button" title="edit" class="btn btn-primary waves-effect m-r-5" data-toggle="modal" data-target="#form" id="submit" onclick="submit('+data[i].id+')"><i class="material-icons" style="color:white">create</i><span></span></button><a class="btn btn-danger waves-effect m-r-5" title="hapus" onclick="deleteData('+data[i].id+')"><i class="material-icons" style="color:white">delete</i><span></span></a></td>'+
                             '</tr>';
                     }
                     

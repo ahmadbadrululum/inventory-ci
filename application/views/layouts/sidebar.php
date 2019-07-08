@@ -105,6 +105,15 @@
 
 
     <script>
+    $( "document" ).on( "click", "ul.list li", function() {
+        $("ul.list li").removeClass("active"); //Remove any "active" class
+            $(this).addClass("active"); //Add "active" class to selected tab
+            // $(".tab_content").hide(); //Hide all tab content
+            // var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content
+            // $(activeTab).fadeIn(); //Fade in the active content
+            // return false; 
+    });
+
     $('#signout').click(function () {
         $.ajax({
             method: 'POST',
@@ -116,4 +125,3 @@
         });
     });
     </script>
- 
