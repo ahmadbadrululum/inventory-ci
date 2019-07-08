@@ -6,6 +6,9 @@ class Product extends CI_Controller
     public function __construct() {
         parent::__construct();
         $this->load->model('Models_general','model');
+        if (!$this->model->isLoggedIn()) {
+            redirect('auth/login');
+        }
     }
 
     public function index(){

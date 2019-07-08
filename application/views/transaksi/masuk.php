@@ -249,71 +249,71 @@
         });
     }
 
-      // $('#simpaubahDatanData').on('click', function () {
-        function editDataSubmit() {
-            var id = $("#editId").val();
-            var nomor_invoice = $('#nomor_invoice').val();
-            var tanggal_masuk = $('#tanggal_masuk').val();
-            var selectBarang  = $('#selectBarang').val();
-            var selectSatuan = $('#selectSatuan').val();
-            var jumlah = $('#jumlah').val();
+    // $('#simpaubahDatanData').on('click', function () {
+    function editDataSubmit() {
+        var id = $("#editId").val();
+        var nomor_invoice = $('#nomor_invoice').val();
+        var tanggal_masuk = $('#tanggal_masuk').val();
+        var selectBarang  = $('#selectBarang').val();
+        var selectSatuan = $('#selectSatuan').val();
+        var jumlah = $('#jumlah').val();
+        $.ajax({
+            type : 'POST',
+            data : {
+                id:id,
+                nomor_invoice:nomor_invoice,
+                tanggal_masuk:tanggal_masuk,
+                selectBarang:selectBarang,
+                selectSatuan:selectSatuan,
+                jumlah:jumlah,
+            },
+            url : '<?= base_url('transaksi/updateData/masuk') ?>',
+            dataType : 'json',
+            success : function(res) {
+                $('#message').empty();    
+                $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
+                if (res.message == '') {
+                    showData();
+                    $('#tanggal_masuk').val("");
+                    $('#selectBarang').val("");
+                    $('#selectSatuan').val(''); 
+                    $('#jumlah').val('');
+                    fieldForm();
+                    $('#message').empty();    
+                    $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Edit barang sukses</div>');
+                    $('#btnEdit').hide();
+                    $('#btnSave').show();
+                }
+            }            
+        });
+    }
+    // });
+
+
+    function deleteData(id){
+        var deleteconfirm = confirm('apakah yakin menghapus ?');
+        if (deleteconfirm) {
             $.ajax({
                 type : 'POST',
-                data : {
-                    id:id,
-                    nomor_invoice:nomor_invoice,
-                    tanggal_masuk:tanggal_masuk,
-                    selectBarang:selectBarang,
-                    selectSatuan:selectSatuan,
-                    jumlah:jumlah,
-                },
-                url : '<?= base_url('transaksi/updateData/masuk') ?>',
+                data : {id:id},
+                url  : '<?= base_url('transaksi/deleteData/masuk') ?>',
                 dataType : 'json',
                 success : function(res) {
-                    $('#message').empty();    
-                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+ res.message +'</div>');
                     if (res.message == '') {
                         showData();
-                        $('#tanggal_masuk').val("");
-                        $('#selectBarang').val("");
-                        $('#selectSatuan').val(''); 
-                        $('#jumlah').val('');
                         fieldForm();
-                        $('#message').empty();    
-                        $('#message').append('<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Edit barang sukses</div>');
-                        $('#btnEdit').hide();
-                        $('#btnSave').show();
                     }
-                }            
+                }
+                // u = $('#dataTable');
+                // u.fnClearTable();
+                // u.fnDraw();
+                // u.fnDestroy();
+                //     showData();
+                //     fieldForm();
+                // }
             });
         }
-        // });
-
-
-        function deleteData(id){
-            var deleteconfirm = confirm('apakah yakin menghapus ?');
-            if (deleteconfirm) {
-                $.ajax({
-                    type : 'POST',
-                    data : {id:id},
-                    url  : '<?= base_url('transaksi/deleteData/masuk') ?>',
-                    dataType : 'json',
-                    success : function(res) {
-                        if (res.message == '') {
-                            showData();
-                            fieldForm();
-                        }
-                    }
-                    // u = $('#dataTable');
-                    // u.fnClearTable();
-                    // u.fnDraw();
-                    // u.fnDestroy();
-                    //     showData();
-                    //     fieldForm();
-                    // }
-                });
-            }
-        }
+    }
     
 
 </script>

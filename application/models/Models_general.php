@@ -23,7 +23,10 @@ class Models_general extends CI_Model
     public function saveData($table, $data){
         $this->db->insert($table, $data);
     }
-
+    public function getDataResult($table, $field, $records){
+        $query = "SELECT * FROM $table WHERE $field = '$records' order by id desc";
+        return $this->db->query($query)->result();
+    }
     public function getData($table, $field, $records, $join=null){
         if ($join==null) {
             $query = "SELECT * FROM $table WHERE $field = '$records'";
@@ -45,15 +48,20 @@ class Models_general extends CI_Model
     }
 
     // TRANSAKSI
-    public function getIdLimit($table, $flag){
-        $query = "SELECT count(*) as jml FROM $table where nomor_invoice like '%$flag%'";
+    public function getIdLimit($table, $flag, $column=null){
+        if ($column == null) {
+            $query = "SELECT count(*) as jml FROM $table where nomor_invoice like '%$flag%'";
+            return $this->db->query($query)->row();
+        }
+        $query = "SELECT count(*) as jml FROM $table where $column like '%$flag%'";
         return $this->db->query($query)->row();
     }
 
 
     public function showAllData($table, $type = null){
         if ($type == null) {
-            $query = "SELECT $table.product_id, product.code_product, product.name_product, unit.unit_name FROM $table left join product on $table.product_id=product.id left join unit on product.unit_product_id=unit.id GROUP BY product_id DESC";
+            $query = "SELECT max(tanggal) as tanggal, product_id, code_product, name_product, unit_name FROM `$table` join product on $table.product_id=product.id join unit on product.unit_product_id=unit.id group by product_id";
+            
             return $this->db->query($query)->result();
         } else {
             $query = "SELECT $table.nomor_invoice, $table.id, $table.tanggal, product.code_product, product.name_product, unit.unit_name, $table.total from product join $table on $table.product_id = product.id join unit on unit.id = product.unit_product_id where nomor_invoice like '%$type%' ORDER BY $table.id DESC";
@@ -80,9 +88,30 @@ class Models_general extends CI_Model
     }
 
 
-    public function getDataUser($table, $username, $password){
-        $query = "SELECT * FROM $table WHERE username = '$username' AND password ='$password'";
-        return $this->db->query($query)->num_rows();
+    public function getDataUser($table, $username, $password, $data=null){
+        if ($data == null) {
+            $query = "SELECT * FROM $table WHERE username = '$username' AND password ='$password'";
+            return $this->db->query($query)->num_rows();
+        }else {
+            $query = "SELECT * FROM $table WHERE $data = '$username' AND password ='$password'";
+            return $this->db->query($query)->row_array();
+        }
+
+    }
+
+    public function count($table){
+        $query = "SELECT  COUNT(id) as jumlah FROM `$table`";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function countTransaksi($table, $where, $type){
+        $query = "SELECT COUNT(id) as jumlah from $table WHERE $where LIKE '%$type%'";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function showDataUser($table, $role, $role2){
+        $query = "SELECT * FROM $table WHERE role = '$role' or role = '$role2'";
+        return $this->db->query($query)->result();
     }
 
     public function isLoggedIn(){

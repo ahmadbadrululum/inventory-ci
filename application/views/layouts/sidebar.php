@@ -8,8 +8,8 @@
                     <img src="<?= base_url('adminbsb/images/user.png') ?>" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">john.doe@example.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $_SESSION['username'] ?></div>
+                    <div class="email"><?php echo $_SESSION['role']; ?></div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
@@ -69,6 +69,22 @@
                             <span>Gudang</span>
                         </a>
                     </li>
+                    <li class="header">LABELS</li>
+                    <li>
+                        <a href="<?= base_url('invoice') ?>">
+                            <i class="material-icons">library_books</i>
+                            <span>Invoice</span>
+                        </a>
+                    </li>
+                    <?php if($_SESSION['role'] != 'admin') { ?>
+                    <li>
+                        <a href="<?= base_url('auth') ?>">
+                            <i class="material-icons">people</i>
+                            <span>Users</span>
+                        </a>
+                    </li>                        
+                    <?php } ?>
+
                 </ul>
             </div>
             <!-- #Menu -->

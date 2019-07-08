@@ -6,6 +6,9 @@ class Gudang extends CI_Controller
     public function __construct() {
         parent::__construct();
         $this->load->model('Models_general','model');
+        if (!$this->model->isLoggedIn()) {
+            redirect('auth/login');
+        }
     }
 
     public function index(){
@@ -19,7 +22,7 @@ class Gudang extends CI_Controller
         switch ($type) {
             case 'gudang':
                 foreach ($this->model->showAllData('transaksi') as $key){
-                    // $data[$i]['tanggal'] = $key->tanggal;
+                    $data[$i]['tanggal'] = $key->tanggal;
                     $data[$i]['kode'] = $key->code_product;
                     $data[$i]['nama'] = $key->name_product;
                     $stok_awal = $this->model->getFirstStock($key->product_id, 'BM')->total;
