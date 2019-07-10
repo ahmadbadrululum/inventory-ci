@@ -62,7 +62,7 @@
                         // alert('login success');
                         document.location='<?= base_url() ?>';
                     }else{
-                        alert('gagal login');
+                        alert('Username atau password salah');
                     }
                 }
             });        
