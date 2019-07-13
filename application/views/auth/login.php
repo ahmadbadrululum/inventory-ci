@@ -1,12 +1,12 @@
 <body class="login-page">
     <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);">Admin<b>BSB</b></a>
-            <small>Admin BootStrap Based - Material Design</small>
+            <a href="javascript:void(0);"><img  style="width:60%" src="http://members.h-seo.com/uploads/company/logo.png" alt=""></a>
         </div>
         <div class="card">
             <div class="body">
-                <div class="msg">Sign in to start your session</div>
+                <div class="msg">LOGIN</div>
+                <div class="row clearfix" id="message"></div>
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="material-icons">person</i>
@@ -29,7 +29,7 @@
                         <label for="rememberme">Remember Me</label> -->
                     </div>
                     <div class="col-xs-4">
-                        <button class="btn btn-block bg-pink waves-effect" onclick="submitLogin()">SIGN IN</button>
+                        <button class="btn btn-block bg-green waves-effect" onclick="submitLogin()">login</button>
                     </div>
                 </div>
                 <!-- <div class="row m-t-15 m-b--20">
@@ -62,7 +62,9 @@
                         // alert('login success');
                         document.location='<?= base_url() ?>';
                     }else{
-                        alert('Username atau password salah');
+                        $('#message').empty();    
+                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Username atau password salah</div>');
+                        // alert('Username atau password salah');
                     }
                 }
             });        

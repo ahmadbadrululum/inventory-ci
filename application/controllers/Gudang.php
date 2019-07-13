@@ -36,12 +36,15 @@ class Gudang extends CI_Controller
                         $stok_keluar = 0;
                     }
                     // $data[$i]['stok_keluar'] = $this->model->getSum($key->product_id, 'BK')->sum - $stok_keluar;
+                    $data[$i]['stok_keluar'] = $this->model->getSum($key->product_id, 'BK')->sum - $stok_keluar;
                     $data[$i]['stok_keluar'] = $stok_keluar;                    
                     $data[$i]['stok_akhir'] = $stok_awal + $stok_masuk - $stok_keluar;
-                    if($data[$i]['stok_akhir'] <= 5) {
-                        $ket = 'kurang';
+                    if($data[$i]['stok_akhir'] == 0) {
+                        $ket = 'kosong';
                     }elseif ($data[$i]['stok_akhir'] >= 6 && $data[$i]['stok_akhir'] <= 10 ) {
                         $ket = 'cukup';
+                    }elseif ($data[$i]['stok_akhir'] <= 5 && $data[$i]['stok_akhir'] <= 1) {
+                        $ket = 'kurang';
                     }else {
                         $ket = 'lebih';
                     }

@@ -21,7 +21,7 @@
             <div class="block-header">
                 <ol class="breadcrumb">
                     <li class="active">
-                        <h2><i class="material-icons">home</i>  Dashboard</h2>
+                        <h2><i class="material-icons">home</i>Dashboard</h2>
                     </li>
                 </ol>
             </div>

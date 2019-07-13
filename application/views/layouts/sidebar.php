@@ -10,18 +10,6 @@
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $_SESSION['username'] ?></div>
                     <div class="email"><?php echo $_SESSION['role']; ?></div>
-                    <div class="btn-group user-helper-dropdown">
-                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-                        <ul class="dropdown-menu pull-right">
-                            <!-- <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-                            <li role="separator" class="divider"></li> -->
-                            <li><a href="javascript:void(0);" id="signout"><i class="material-icons">input</i>Sign Out</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <!-- #User Info -->
@@ -69,7 +57,7 @@
                             <span>Gudang</span>
                         </a>
                     </li>
-                    <li class="header">LABELS</li>
+                    <!-- <li class="header">LABELS</li> -->
                     <li>
                         <a href="<?= base_url('invoice') ?>">
                             <i class="material-icons">library_books</i>
@@ -84,6 +72,12 @@
                         </a>
                     </li>                        
                     <?php } ?>
+                    <li>
+                        <a href="javascript:void(0);" id="signout" class=" waves-effect waves-block">
+                            <i class="material-icons">exit_to_app</i>
+                            <span>Keluar</span>
+                        </a>
+                    </li>
 
                 </ul>
             </div>

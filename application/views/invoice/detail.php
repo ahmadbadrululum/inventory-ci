@@ -22,7 +22,7 @@
                         <h2> <strong>Rincian Belanja</strong></h2>
                         <ul class="header-dropdown"  style="margin-right:-20px; margin-top:-10px;">
                             <button type="button" id="refresh" class="btn btn-info waves-effect" onclick="refreshPage()"><i class="material-icons" style="color:white">refresh</i><span>refresh</span></button>
-                            <a href="<?= base_url('invoice') ?>" class="btn btn-warning waves-effect m-r-20"><i class="material-icons" style="color:white">reply</i><span>back</span></a>
+                            <a href="<?= base_url('invoice') ?>" class="btn btn-warning waves-effect m-r-20"><i class="material-icons" style="color:white">reply</i><span>kembali</span></a>
                         </ul>
                     </div>
                     <div class="body">
@@ -130,19 +130,19 @@
                 html += ' </tr>';
             var no = 1;
             for (let i = 0; i < res.data.length; i++) {
-                var reverse = res.data[i].harga.toString().split('').reverse().join(''),
-                harga = reverse.match(/\d{1,3}/g);
-                harga = harga.join('.').split('').reverse().join('');
+                // var reverse = res.data[i].harga.toString().split('').reverse().join(''),
+                // harga = reverse.match(/\d{1,3}/g);
+                // harga = harga.join('.').split('').reverse().join('');
 
                 var reverse = res.data[i].total.toString().split('').reverse().join(''),
                 total = reverse.match(/\d{1,3}/g);
                 total = total.join('.').split('').reverse().join('');
 
-                html += '<tr>';
+                html += '<tr value="'+i+'">';
                 html += '<td>'+ no++ +'</td>';
                 html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="nama_barang" contenteditable>'+res.data[i].nama_barang+'</td>';
-                html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="harga" readonly>'+harga+'</td>';
-                html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="quantity" readonly>'+res.data[i].quantity+'</td>';
+                html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="harga" contenteditable>'+res.data[i].harga+'</td>';
+                html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="quantity" contenteditable>'+res.data[i].quantity+'</td>';
                 html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="satuan" contenteditable>'+res.data[i].satuan+'</td>';
                 html += '<td class="table_data" data-row_id="'+res.data[i].id+'" data-column_name="total">'+total+'</td>';
                 html += '<td><button type="submit" name="delete_btn" id="'+res.data[i].id+'" class="btn btn-danger btn_delete"><i class="material-icons" style="color:white">delete</i><span>hapus</span></button></td></tr>';
@@ -198,7 +198,7 @@
         var status1 = <?= $invoice['status_1'] ?>;
         $('#selectSetuju').val(status1);
         $('#select_setuju').show();
-        $('#cek_setuju').hide();
+        $('#cek_setuju').hide();harga
     });
 
     $(document).on('click', '#cek_setuju2', function () {
@@ -262,17 +262,47 @@
         $('#total').text(harga * qty);
     });
 
+// ini edit 
+// ini nih ediiitttt 
+// document.addEventListener('keyup', function(e) {
+//   if (e.target.className === 'table_data') {
+//     if(e.which < 48 || event.which > 57){
+        
+//     }else{
+//         var txt = e.target.innerHTML.replace(/\./g, '');
+//         txt = txt.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+//         e.target.innerHTML = txt;
+//         document.trigger(39);
+//     }
+//     // e.Handled = true;
+//   }
+// });
     $(document).on('blur', '.table_data', function () {
+        var tr = $(this).closest('tr');
+        var td = tr.find('td');
+        // var harga = parseInt(td.eq(2).html().replace(/\.g, ''));
+        // var jml = parseInt(td.eq(3).html().replace(/\./g, ''));
+        var harga = parseInt(td.eq(2).html());
+        var jml = parseInt(td.eq(3).html());
+        var total = harga * jml;
+        td.eq(5).html(total);
+
+        console.log(total);
+        
         var id  = $(this).data('row_id');
         var table_column = $(this).data('column_name');
         var value = $(this).text();
         // if (table_column == 'harga') {
-        //     var qty = parseFloat($('#qty').text()) || 0;
+        //     var id  = $(this).data('row_id');
+        //     var table_column = $(this).data('quantity');
+        //     var value = $(this).text();
+
+        //     // var qty = parseFloat($('#qty').text()) || 0;
         //     // $('#total').text(harga * qty);
         // }
         $.ajax({
             method: 'POST',
-            data  : { id : id, table_column : table_column, value : value },
+            data  : { id : id, table_column : table_column, value : value, total : total },
             url   : '<?= base_url('invoice/detailUpdate') ?>',
             dataType: 'json',
             success : function(res) {
@@ -329,6 +359,46 @@
             }
         }); 
     }
+
+//     jQuery.fn.putCursorAtEnd = function() {
+
+//   return this.each(function() {
+    
+//     // Cache references
+//     var $el = $(this),
+//         el = this;
+
+//     // Only focus if input isn't already
+//     if (!$el.is(":focus")) {
+//      $el.focus();
+//     }
+
+//     // If this function exists... (IE 9+)
+//     if (el.setSelectionRange) {
+
+//       // Double the length because Opera is inconsistent about whether a carriage return is one character or two.
+//       var len = $el.val().length * 2;
+      
+//       // Timeout seems to be required for Blink
+//       setTimeout(function() {
+//         el.setSelectionRange(len, len);
+//       }, 1);
+    
+//     } else {
+      
+//       // As a fallback, replace the contents with itself
+//       // Doesn't work in Chrome, but Chrome supports setSelectionRange
+//       $el.val($el.val());
+      
+//     }
+
+//     // Scroll to the bottom, in case we're in a tall textarea
+//     // (Necessary for Firefox and Chrome)
+//     this.scrollTop = 999999;
+
+//   });
+
+// };
 
 
 </script>

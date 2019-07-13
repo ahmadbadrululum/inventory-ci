@@ -114,8 +114,11 @@ class Invoice extends CI_Controller{
         $table_column = $this->input->post('table_column');
         $value = $this->input->post('value');
         $id = $this->input->post('id');
+        $total = $this->input->post('total');
+
         $data = [
             $table_column => $value,
+            'total' => $total,
         ];
         $this->model->updateData($id, 'detail_invoice', $data);
         $data['message'] = 'success';
