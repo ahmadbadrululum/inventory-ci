@@ -29,7 +29,7 @@
                         <label for="rememberme">Remember Me</label> -->
                     </div>
                     <div class="col-xs-4">
-                        <button class="btn btn-block bg-green waves-effect" onclick="submitLogin()">login</button>
+                        <button class="btn btn-block bg-green waves-effect" id="btnlogin">login</button>
                     </div>
                 </div>
                 <!-- <div class="row m-t-15 m-b--20">
@@ -45,7 +45,15 @@
     </div>
     
 <script>
-    function submitLogin() {
+    $(document).ready(function() {
+        $('#username, #password').keypress(function(e){
+            if(e.keyCode==13)
+            $('#btnlogin').click();
+        });
+    });
+
+    // function submitLogin(e) {
+    $('#btnlogin').click(function () {
         var username = $('#username').val();
         var password = $('#password').val();
         if (username == '') { alert('username kosong'); }
@@ -56,20 +64,17 @@
             data  : {   username : username, 
                         password : password },
             url   : '<?= base_url('auth/loginSubmit') ?>',
-            // dataType: 'json',
                 success : function(res) {
                     if (res == 'ok') {
-                        // alert('login success');
                         document.location='<?= base_url() ?>';
                     }else{
                         $('#message').empty();    
-                    $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Username atau password salah</div>');
-                        // alert('Username atau password salah');
+                        $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Username atau password salah</div>');
                     }
                 }
             });        
         }
-    }
-
+    });
+        
 
 </script>
