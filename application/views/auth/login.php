@@ -56,9 +56,13 @@
     $('#btnlogin').click(function () {
         var username = $('#username').val();
         var password = $('#password').val();
-        if (username == '') { alert('username kosong'); }
-        else if(password == '') { alert('password kosong'); }
-        else{
+        if (username == '') {  
+            $('#message').empty();    
+            $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Username tidak boleh kosong</div>'); 
+        }else if(password == '') { 
+            $('#message').empty();    
+            $('#message').append('<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Password tidak boleh kosong</div>');
+        }else{
             $.ajax({
             method: 'POST',
             data  : {   username : username, 
